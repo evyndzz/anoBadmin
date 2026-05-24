@@ -10,8 +10,6 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/courts/{court}', [HomeController::class, 'showCourt'])->name('courts.show');
 Route::get('/api/courts/{court}/slots', [BookingController::class, 'getSlots'])->name('api.courts.slots');
 Route::post('/book-guest', [BookingController::class, 'storeGuest'])->name('book.guest');
-Route::get('/bookings/{booking}', [BookingController::class, 'show'])->name('bookings.show');
-Route::post('/payments/{booking}', [BookingController::class, 'pay'])->name('payments.store');
 
 // Dynamic dashboard redirect based on role
 Route::get('/dashboard', function () {
@@ -70,5 +68,8 @@ Route::middleware('auth')->group(function () {
         Route::get('/dashboard', [DashboardController::class, 'user'])->name('dashboard');
     });
 });
+
+Route::get('/bookings/{booking}', [BookingController::class, 'show'])->name('bookings.show');
+Route::post('/payments/{booking}', [BookingController::class, 'pay'])->name('payments.store');
 
 require __DIR__.'/auth.php';

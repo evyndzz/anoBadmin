@@ -1,6 +1,9 @@
 <x-guest-layout>
-    <div class="mb-4 text-sm text-gray-600">
-        {{ __('Forgot your password? No problem. Just let us know your email address and we will email you a password reset link that will allow you to choose a new one.') }}
+    <div class="mb-6 text-center">
+        <h2 class="text-2xl font-bold text-slate-850 dark:text-white">Lupa Password?</h2>
+        <p class="text-sm text-slate-500 dark:text-slate-400 mt-2">
+            Masukkan email Anda, dan kami akan mengirimkan link reset password untuk membuat yang baru.
+        </p>
     </div>
 
     <!-- Session Status -->
@@ -16,10 +19,14 @@
             <x-input-error :messages="$errors->get('email')" class="mt-2" />
         </div>
 
-        <div class="flex items-center justify-end mt-4">
-            <x-primary-button>
-                {{ __('Email Password Reset Link') }}
+        <div class="mt-6 flex flex-col items-center space-y-4">
+            <x-primary-button class="w-full">
+                {{ __('Kirim Link Reset Password') }}
             </x-primary-button>
+            
+            <a href="{{ route('login') }}" class="text-sm font-semibold text-brand-500 dark:text-brand-400 hover:underline">
+                Kembali ke halaman masuk
+            </a>
         </div>
     </form>
 </x-guest-layout>

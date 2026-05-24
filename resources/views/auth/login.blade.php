@@ -2,6 +2,11 @@
     <!-- Session Status -->
     <x-auth-session-status class="mb-4" :status="session('status')" />
 
+    <div class="mb-6 text-center">
+        <h2 class="text-2xl font-bold text-slate-850 dark:text-white">Selamat Datang</h2>
+        <p class="text-sm text-slate-500 dark:text-slate-400 mt-1">Silakan masuk ke akun Anda</p>
+    </div>
+
     <form method="POST" action="{{ route('login') }}">
         @csrf
 
@@ -25,23 +30,30 @@
         </div>
 
         <!-- Remember Me -->
-        <div class="block mt-4">
-            <label for="remember_me" class="inline-flex items-center">
-                <input id="remember_me" type="checkbox" class="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500" name="remember">
-                <span class="ms-2 text-sm text-gray-600">{{ __('Remember me') }}</span>
+        <div class="block mt-4 flex items-center justify-between">
+            <label for="remember_me" class="inline-flex items-center cursor-pointer">
+                <input id="remember_me" type="checkbox" class="rounded-lg border-slate-200 dark:border-slate-800 text-brand-500 focus:ring-brand-400/20 focus:ring-opacity-20 bg-white dark:bg-slate-900/50" name="remember">
+                <span class="ms-2 text-sm text-slate-500 dark:text-slate-400 font-semibold">{{ __('Remember me') }}</span>
             </label>
-        </div>
 
-        <div class="flex items-center justify-end mt-4">
             @if (Route::has('password.request'))
-                <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('password.request') }}">
-                    {{ __('Forgot your password?') }}
+                <a class="text-sm font-semibold text-brand-500 dark:text-brand-400 hover:text-brand-600 dark:hover:text-brand-300 transition-colors focus:outline-none" href="{{ route('password.request') }}">
+                    {{ __('Lupa password?') }}
                 </a>
             @endif
+        </div>
 
-            <x-primary-button class="ms-3">
+        <div class="mt-6">
+            <x-primary-button class="w-full">
                 {{ __('Log in') }}
             </x-primary-button>
+        </div>
+
+        <div class="mt-6 text-center text-sm text-slate-500 dark:text-slate-400">
+            Belum punya akun? 
+            <a href="{{ route('register') }}" class="font-semibold text-brand-500 dark:text-brand-400 hover:underline">
+                Daftar sekarang
+            </a>
         </div>
     </form>
 </x-guest-layout>

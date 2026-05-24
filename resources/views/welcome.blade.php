@@ -1,25 +1,51 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="id"
+      x-data="{ darkMode: localStorage.getItem('darkMode') === 'true' || (!('darkMode' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches) }" 
+      x-init="$watch('darkMode', val => localStorage.setItem('darkMode', val))" 
+      :class="{ 'dark': darkMode }">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Booking Lapangan Badminton - Premium</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.bunny.net">
+    <link href="https://fonts.bunny.net/css?family=figtree:400,500,600,800,900&display=swap" rel="stylesheet" />
+
+    <!-- Anti-FOUC Script -->
+    <script>
+        if (localStorage.getItem('darkMode') === 'true' || (!('darkMode' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+    </script>
+
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
-<body class="bg-slate-50 text-slate-800 font-sans antialiased selection:bg-blue-500 selection:text-white">
+<body class="bg-slate-50 dark:bg-slate-950 text-slate-800 dark:text-slate-100 font-sans antialiased selection:bg-brand-500 selection:text-white transition-colors duration-300">
     <!-- Navbar -->
-    <nav class="bg-white/80 backdrop-blur-md sticky top-0 z-50 border-b border-slate-200">
+    <nav class="bg-white/80 dark:bg-slate-900/80 backdrop-blur-md sticky top-0 z-50 border-b border-slate-100 dark:border-slate-800/80 shadow-sm transition-all duration-300">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between h-16">
+            <div class="flex justify-between h-20">
                 <div class="flex items-center">
-                    <span class="text-2xl font-black bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">AnoBadmin</span>
+                    <a href="/" class="flex items-center gap-2.5">
+                        <x-application-logo class="h-8 w-auto fill-current text-brand-500" />
+                        <span class="text-2xl font-black bg-gradient-to-r from-brand-500 to-emerald-600 dark:from-brand-400 dark:to-emerald-500 bg-clip-text text-transparent tracking-tight">anoBadmin</span>
+                    </a>
                 </div>
                 <div class="flex items-center space-x-4">
+                    <!-- Dark Mode Toggle -->
+                    <button @click="darkMode = !darkMode" aria-label="Toggle Dark Mode" class="p-2.5 text-slate-500 dark:text-slate-400 hover:text-brand-500 dark:hover:text-brand-450 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-full transition-colors focus:outline-none">
+                        <svg x-show="darkMode" style="display: none;" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+                        <svg x-show="!darkMode" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
+                    </button>
+
                     @auth
-                        <a href="{{ route('user.dashboard') }}" class="text-slate-600 hover:text-blue-600 font-medium transition-colors">Dashboard</a>
+                        <a href="{{ route('user.dashboard') }}" class="btn-secondary py-2 px-4 text-sm font-semibold rounded-xl">Dashboard</a>
                     @else
-                        <a href="{{ route('login') }}" class="text-slate-600 hover:text-blue-600 font-medium transition-colors">Masuk</a>
-                        <a href="{{ route('register') }}" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-full font-medium transition-transform transform hover:scale-105 active:scale-95 shadow-lg shadow-blue-500/30">Daftar Member</a>
+                        <a href="{{ route('login') }}" class="text-slate-600 dark:text-slate-400 hover:text-brand-500 dark:hover:text-brand-400 font-semibold transition-colors">Masuk</a>
+                        <a href="{{ route('register') }}" class="btn-primary py-2 px-4 text-sm font-semibold rounded-xl">Daftar Member</a>
                     @endauth
                 </div>
             </div>
@@ -27,40 +53,41 @@
     </nav>
 
     <!-- Hero Section -->
-    <div class="relative overflow-hidden bg-slate-900 text-white py-24 sm:py-32">
-        <div class="absolute inset-0 z-0 opacity-20">
-            <img src="https://images.unsplash.com/photo-1626224583764-f87db24ac4ea?q=80&w=2070&auto=format&fit=crop" class="w-full h-full object-cover" alt="Badminton">
+    <div class="relative overflow-hidden bg-slate-900 text-white py-28 sm:py-36">
+        <div class="absolute inset-0 z-0 opacity-30">
+            <img src="https://images.unsplash.com/photo-1626224583764-f87db24ac4ea?q=80&w=2070&auto=format&fit=crop" class="w-full h-full object-cover filter contrast-125 brightness-75" alt="Badminton">
         </div>
-        <div class="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/60 to-transparent z-10"></div>
+        <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-900/70 to-brand-950/20 z-10"></div>
         
         <div class="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h1 class="text-4xl sm:text-6xl font-black tracking-tight mb-6">Main Badminton, <span class="text-blue-400">Lebih Mudah!</span></h1>
-            <p class="text-lg sm:text-xl text-slate-300 max-w-2xl mx-auto mb-10">Booking lapangan dalam hitungan detik. Dapatkan poin dari setiap transaksi, dan nikmati diskon eksklusif bagi pemegang membership Ano Member & Supah Ano.</p>
-            <a href="#courts" class="inline-block bg-blue-600 hover:bg-blue-500 text-white px-8 py-4 rounded-full text-lg font-bold transition-all transform hover:-translate-y-1 shadow-xl shadow-blue-600/40">Lihat Lapangan</a>
+            <span class="inline-flex items-center px-4 py-1.5 rounded-full text-xs font-bold bg-brand-500/10 text-brand-400 border border-brand-500/20 mb-6 tracking-wide uppercase">⚡ Premium Court Booking</span>
+            <h1 class="text-4xl sm:text-6xl font-extrabold tracking-tight mb-6">Main Badminton, <span class="text-brand-400 bg-gradient-to-r from-brand-400 to-emerald-300 bg-clip-text text-transparent">Lebih Mudah!</span></h1>
+            <p class="text-lg sm:text-xl text-slate-300 max-w-2xl mx-auto mb-10 leading-relaxed">Booking lapangan favorit Anda dalam hitungan detik. Dapatkan poin dari setiap transaksi, dan nikmati keuntungan eksklusif serta diskon melimpah bagi pemegang membership.</p>
+            <a href="#courts" class="btn-primary py-4 px-8 rounded-full text-base font-bold transition-all shadow-soft-lg shadow-brand-500/20">Lihat Lapangan</a>
         </div>
     </div>
 
     <!-- Courts Section -->
-    <div id="courts" class="py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div id="courts" class="py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center mb-16">
-            <h2 class="text-3xl font-bold text-slate-900 mb-4">Pilihan Lapangan Premium</h2>
-            <p class="text-slate-500">Pilih lapangan favorit Anda dan lihat jadwal yang tersedia.</p>
+            <h2 class="text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight mb-4">Pilihan Lapangan Premium</h2>
+            <p class="text-slate-500 dark:text-slate-400 max-w-lg mx-auto">Pilih lapangan badminton favorit Anda yang dilapisi karpet vinyl standar internasional dan nikmati pengalaman bermain premium.</p>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             @foreach($courts as $court)
-            <div class="bg-white rounded-2xl overflow-hidden shadow-lg border border-slate-100 hover:shadow-2xl transition-all duration-300 group">
-                <div class="h-48 bg-slate-200 overflow-hidden relative">
+            <div class="card p-0 overflow-hidden group">
+                <div class="h-56 bg-slate-200 dark:bg-slate-800 overflow-hidden relative">
                     <img src="{{ $court->image ?? 'https://storage.googleapis.com/data.ayo.co.id/photos/77445/SEO%20HDI%202/16.%20Kelebihan%20dan%20Kekurangan%20Lapangan%20Badminton%20Sintetis%20yang%20Perlu%20Diketahui.jpg' }}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" alt="{{ $court->name }}">
-                    <div class="absolute top-4 right-4 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-sm font-bold text-slate-800 shadow-sm">
-                        Rp {{ number_format($court->price_per_hour, 0, ',', '.') }} <span class="text-xs text-slate-500 font-normal">/ jam</span>
+                    <div class="absolute top-4 right-4 bg-white/90 dark:bg-slate-900/90 backdrop-blur-md px-3.5 py-1.5 rounded-2xl text-sm font-bold text-slate-800 dark:text-slate-100 border border-slate-100/10 shadow-soft">
+                        Rp {{ number_format($court->price_per_hour, 0, ',', '.') }} <span class="text-xs text-slate-500 dark:text-slate-400 font-normal">/ jam</span>
                     </div>
                 </div>
                 <div class="p-6">
-                    <h3 class="text-xl font-bold mb-2">{{ $court->name }}</h3>
-                    <p class="text-slate-600 text-sm mb-6 line-clamp-2">{{ $court->description }}</p>
+                    <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">{{ $court->name }}</h3>
+                    <p class="text-slate-600 dark:text-slate-400 text-sm mb-6 line-clamp-2">{{ $court->description }}</p>
                     
-                    <button onclick="openBookingModal({{ $court->id }}, '{{ $court->name }}', {{ $court->price_per_hour }})" class="w-full bg-slate-900 hover:bg-slate-800 text-white font-medium py-3 rounded-xl transition-colors">
+                    <button onclick="openBookingModal({{ $court->id }}, '{{ $court->name }}', {{ $court->price_per_hour }})" class="w-full btn-primary py-3 rounded-2xl text-sm font-semibold shadow-soft">
                         Cek Jadwal & Booking
                     </button>
                 </div>
@@ -70,56 +97,67 @@
     </div>
 
     <!-- Membership Info Section -->
-    <div class="bg-slate-100 py-20">
+    <div class="bg-slate-100 dark:bg-slate-900/40 border-y border-slate-200/45 dark:border-slate-800/60 py-24">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h2 class="text-3xl font-bold mb-4">Sistem Membership</h2>
-            <p class="text-slate-500 max-w-2xl mx-auto mb-12">Kami menyediakan tiga tipe keanggotaan untuk memberikan fleksibilitas dan keuntungan maksimal bagi Anda yang rutin bermain badminton (8x per bulan).</p>
+            <h2 class="text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight mb-4">Sistem Membership Keanggotaan</h2>
+            <p class="text-slate-500 dark:text-slate-400 max-w-2xl mx-auto mb-16">Kami menyediakan beberapa tipe keanggotaan untuk memberikan fleksibilitas dan keuntungan maksimal bagi Anda yang rutin bermain badminton (8x per bulan).</p>
             
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-10 text-left">
-                <!-- Tidak Member -->
-                <div class="bg-white p-8 rounded-3xl shadow-sm border border-slate-200">
-                    <h3 class="text-xl font-bold mb-1">Reguler</h3>
-                    <p class="text-sm text-slate-500 mb-6">Booking Harian</p>
-                    <ul class="space-y-3 mb-8">
-                        <li class="flex items-start"><span class="text-blue-500 mr-2">✓</span> Sistem poin & penukaran voucher promo.</li>
-                        <li class="flex items-start"><span class="text-blue-500 mr-2">✓</span> Booking manual via website.</li>
-                        <li class="flex items-start"><span class="text-blue-500 mr-2">✓</span> Akses semua lapangan.</li>
-                    </ul>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-left">
+                <!-- Reguler -->
+                <div class="card border border-slate-200/60 dark:border-slate-800/80 bg-white dark:bg-slate-900 flex flex-col justify-between">
+                    <div>
+                        <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-bold bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 mb-4">Reguler</span>
+                        <h3 class="text-2xl font-bold text-slate-900 dark:text-white mb-1">Pemain Harian</h3>
+                        <p class="text-sm text-slate-400 dark:text-slate-500 mb-6">Booking fleksibel harian</p>
+                        <ul class="space-y-4 mb-8 text-slate-600 dark:text-slate-400 text-sm">
+                            <li class="flex items-start"><span class="text-brand-500 font-bold mr-2.5 text-base">✓</span> Kumpulkan poin dan tukarkan voucher gratis.</li>
+                            <li class="flex items-start"><span class="text-brand-500 font-bold mr-2.5 text-base">✓</span> Booking manual instan via website.</li>
+                            <li class="flex items-start"><span class="text-brand-500 font-bold mr-2.5 text-base">✓</span> Akses booking ke semua jenis lapangan.</li>
+                        </ul>
+                    </div>
                 </div>
+                
                 <!-- Ano Member -->
-                <div class="bg-blue-600 text-white p-8 rounded-3xl shadow-lg border border-blue-500 transform md:-translate-y-4">
-                    <div class="absolute top-0 right-0 bg-yellow-400 text-yellow-900 text-xs font-bold px-3 py-1 rounded-bl-xl rounded-tr-3xl">Paling Populer</div>
-                    <h3 class="text-xl font-bold mb-1">Ano Member</h3>
-                    <p class="text-sm text-blue-200 mb-6">Booking Rutin Otomatis</p>
-                    <ul class="space-y-3 mb-8 text-sm">
-                        <li class="flex items-start"><span class="text-white mr-2">✓</span> <strong>8x Pertemuan per bulan.</strong></li>
-                        <li class="flex items-start"><span class="text-white mr-2">✓</span> <strong>Durasi 3 Jam per pertemuan.</strong></li>
-                        <li class="flex items-start"><span class="text-white mr-2">✓</span> Jadwal tetap di-booking otomatis oleh admin.</li>
-                        <li class="flex items-start"><span class="text-white mr-2">✓</span> Sistem Poin untuk ditukar voucher diskon tambahan.</li>
-                    </ul>
+                <div class="card border-2 border-brand-500 bg-brand-500 text-white flex flex-col justify-between relative transform md:-translate-y-4 shadow-soft-lg hover:shadow-soft-lg">
+                    <div class="absolute -top-3.5 left-1/2 transform -translate-x-1/2 bg-amber-400 text-amber-950 text-xs font-extrabold px-4 py-1 rounded-full uppercase tracking-wider shadow-sm">Paling Populer</div>
+                    <div>
+                        <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-bold bg-white/20 text-white mb-4">Ano Member</span>
+                        <h3 class="text-2xl font-bold mb-1 text-white">Ano Member</h3>
+                        <p class="text-sm text-brand-100 mb-6">Booking Rutin Bulanan</p>
+                        <ul class="space-y-4 mb-8 text-sm text-brand-50">
+                            <li class="flex items-start"><span class="text-white font-bold mr-2.5 text-base">✓</span> <strong>8x Pertemuan per bulan.</strong></li>
+                            <li class="flex items-start"><span class="text-white font-bold mr-2.5 text-base">✓</span> <strong>Durasi 3 Jam per pertemuan.</strong></li>
+                            <li class="flex items-start"><span class="text-white font-bold mr-2.5 text-base">✓</span> Jadwal tetap yang dibooking otomatis oleh sistem.</li>
+                            <li class="flex items-start"><span class="text-white font-bold mr-2.5 text-base">✓</span> Dapatkan poin melimpah untuk diskon tambahan.</li>
+                        </ul>
+                    </div>
                 </div>
+                
                 <!-- Supah Ano -->
-                <div class="bg-white p-8 rounded-3xl shadow-sm border border-slate-200">
-                    <h3 class="text-xl font-bold mb-1 bg-gradient-to-r from-amber-500 to-red-500 bg-clip-text text-transparent">Supah Ano</h3>
-                    <p class="text-sm text-slate-500 mb-6">Pemain Pro & Klub</p>
-                    <ul class="space-y-3 mb-8 text-sm">
-                        <li class="flex items-start"><span class="text-amber-500 mr-2">✓</span> <strong>8x Pertemuan per bulan.</strong></li>
-                        <li class="flex items-start"><span class="text-amber-500 mr-2">✓</span> <strong>Durasi Maksimal 4 Jam per pertemuan.</strong></li>
-                        <li class="flex items-start"><span class="text-amber-500 mr-2">✓</span> Jadwal tetap di-booking otomatis oleh admin.</li>
-                        <li class="flex items-start"><span class="text-amber-500 mr-2">✓</span> <strong class="text-green-600 bg-green-100 px-1 rounded">Gratis 2 Shuttlecock / Pertemuan</strong></li>
-                        <li class="flex items-start"><span class="text-amber-500 mr-2">✓</span> <strong class="text-blue-600 bg-blue-100 px-1 rounded">Gratis 2 Air Mineral 600ml</strong></li>
-                    </ul>
+                <div class="card border border-slate-200/60 dark:border-slate-800/80 bg-white dark:bg-slate-900 flex flex-col justify-between">
+                    <div>
+                        <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-bold bg-amber-500/10 text-amber-500 mb-4">Exclusive</span>
+                        <h3 class="text-2xl font-bold mb-1 bg-gradient-to-r from-amber-500 to-rose-500 bg-clip-text text-transparent">Supah Ano</h3>
+                        <p class="text-sm text-slate-400 dark:text-slate-500 mb-6">Pemain Klub & Pro</p>
+                        <ul class="space-y-4 mb-8 text-sm text-slate-600 dark:text-slate-400">
+                            <li class="flex items-start"><span class="text-amber-500 font-bold mr-2.5 text-base">✓</span> <strong>8x Pertemuan per bulan.</strong></li>
+                            <li class="flex items-start"><span class="text-amber-500 font-bold mr-2.5 text-base">✓</span> <strong>Durasi Maksimal 4 Jam per pertemuan.</strong></li>
+                            <li class="flex items-start"><span class="text-amber-500 font-bold mr-2.5 text-base">✓</span> Jadwal tetap prioritas utama auto-booking.</li>
+                            <li class="flex items-start"><span class="text-amber-500 font-bold mr-2.5 text-base">✓</span> <strong class="text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/40 px-2 py-0.5 rounded-lg border border-emerald-100 dark:border-emerald-900/20">Gratis 2 Shuttlecock / Sesi</strong></li>
+                            <li class="flex items-start"><span class="text-amber-500 font-bold mr-2.5 text-base">✓</span> <strong class="text-brand-600 dark:text-brand-400 bg-brand-50 dark:bg-brand-950/40 px-2 py-0.5 rounded-lg border border-brand-100 dark:border-brand-900/20">Gratis 2 Air Mineral 600ml</strong></li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 
     <!-- Booking Modal -->
-    <div id="bookingModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 hidden flex items-center justify-center opacity-0 transition-opacity duration-300 overflow-y-auto">
-        <div class="bg-white rounded-3xl shadow-2xl w-full max-w-2xl my-8 overflow-hidden transform scale-95 transition-transform duration-300" id="modalContent">
-            <div class="p-6 border-b border-slate-100 flex justify-between items-center bg-slate-50 sticky top-0 z-10">
-                <h3 class="text-xl font-bold text-slate-800" id="modalCourtName">Booking Lapangan</h3>
-                <button onclick="closeBookingModal()" class="text-slate-400 hover:text-red-500 transition-colors">
+    <div id="bookingModal" class="fixed inset-0 bg-slate-950/45 backdrop-blur-sm z-50 hidden flex items-center justify-center opacity-0 transition-opacity duration-300 overflow-y-auto">
+        <div class="bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800/80 rounded-4xl shadow-soft-lg w-full max-w-2xl my-8 overflow-hidden transform scale-95 transition-transform duration-300" id="modalContent">
+            <div class="p-6 border-b border-slate-100 dark:border-slate-800 flex justify-between items-center bg-slate-50 dark:bg-slate-900/50 sticky top-0 z-10">
+                <h3 class="text-xl font-extrabold text-slate-800 dark:text-white" id="modalCourtName">Booking Lapangan</h3>
+                <button onclick="closeBookingModal()" class="text-slate-400 hover:text-rose-500 p-1 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl transition-all">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
                 </button>
             </div>
@@ -131,77 +169,81 @@
                 <input type="hidden" name="duration" id="inputDuration">
                 
                 @guest
-                <div class="grid grid-cols-2 gap-4">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
-                        <label class="block text-sm font-medium text-slate-700 mb-1">Nama Lengkap</label>
-                        <input type="text" name="guest_name" required class="w-full rounded-xl border-slate-300 focus:border-blue-500 focus:ring-blue-500">
+                        <label class="label">Nama Lengkap</label>
+                        <input type="text" name="guest_name" required class="input">
                     </div>
                     <div>
-                        <label class="block text-sm font-medium text-slate-700 mb-1">No. WhatsApp</label>
-                        <input type="text" name="guest_phone" required class="w-full rounded-xl border-slate-300 focus:border-blue-500 focus:ring-blue-500">
+                        <label class="label">No. WhatsApp</label>
+                        <input type="text" name="guest_phone" required class="input">
                     </div>
                 </div>
-                <div class="bg-amber-50 text-amber-700 text-sm p-3 rounded-lg border border-amber-200">
-                    <p>💡 Tip: <a href="{{ route('login') }}" class="font-bold underline">Login</a> untuk mendapatkan poin dan rekomendasi promo!</p>
+                <div class="p-4 rounded-2xl bg-amber-50 dark:bg-amber-950/20 text-amber-700 dark:text-amber-400 text-sm border border-amber-100 dark:border-amber-900/20 flex items-center shadow-inner">
+                    <svg class="w-5 h-5 mr-2 text-amber-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    <span>💡 Tip: <a href="{{ route('login') }}" class="font-bold text-brand-650 dark:text-brand-400 hover:underline">Login</a> terlebih dahulu untuk kumpulkan poin & klaim promo voucher!</span>
                 </div>
                 @endguest
 
                 <div>
-                    <label class="block text-sm font-medium text-slate-700 mb-2">Pilih Tanggal</label>
-                    <input type="date" name="date" id="modalDate" required min="{{ date('Y-m-d') }}" value="{{ date('Y-m-d') }}" onchange="fetchSlots()" class="w-full rounded-xl border-slate-300 focus:border-blue-500 focus:ring-blue-500">
+                    <label class="label">Pilih Tanggal Booking</label>
+                    <input type="date" name="date" id="modalDate" required min="{{ date('Y-m-d') }}" value="{{ date('Y-m-d') }}" onchange="fetchSlots()" class="input">
                 </div>
 
                 <div>
-                    <div class="flex justify-between items-center mb-2">
-                        <label class="block text-sm font-medium text-slate-700">Pilih Jam (Klik jam berurutan untuk durasi lebih)</label>
-                        <div class="text-xs text-slate-500"><span class="inline-block w-3 h-3 bg-red-100 rounded-full mr-1"></span> Terisi <span class="inline-block w-3 h-3 bg-green-500 rounded-full ml-2 mr-1"></span> Dipilih</div>
+                    <div class="flex justify-between items-center mb-3">
+                        <label class="label mb-0">Pilih Jam (Klik berurutan untuk kelipatan durasi)</label>
+                        <div class="flex items-center gap-3 text-xs font-semibold text-slate-500 dark:text-slate-400">
+                            <span class="flex items-center"><span class="w-3 h-3 bg-rose-50 dark:bg-rose-950/40 border border-rose-100 dark:border-rose-900/30 rounded-lg mr-1.5"></span> Terisi</span>
+                            <span class="flex items-center"><span class="w-3 h-3 bg-brand-500 rounded-lg mr-1.5"></span> Dipilih</span>
+                        </div>
                     </div>
                     
                     <!-- Loading state -->
-                    <div id="slotsLoading" class="text-center py-4 text-blue-600 hidden">
-                        <svg class="animate-spin h-6 w-6 mx-auto" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
+                    <div id="slotsLoading" class="text-center py-6 text-brand-500 hidden">
+                        <svg class="animate-spin h-7 w-7 mx-auto" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
                     </div>
 
                     <!-- Error state -->
-                    <div id="slotsError" class="text-center py-4 text-red-500 font-medium hidden">
-                        Gagal memuat jadwal. Silakan coba lagi.
+                    <div id="slotsError" class="text-center py-6 text-rose-500 font-semibold hidden">
+                        Gagal memuat jadwal. Silakan coba beberapa saat lagi.
                     </div>
 
                     <!-- Slots Grid -->
-                    <div id="slotsGrid" class="grid grid-cols-4 sm:grid-cols-6 gap-2">
+                    <div id="slotsGrid" class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-2.5">
                         <!-- Filled by JS -->
                     </div>
-                    <p id="slotsError" class="text-red-500 text-sm mt-2 hidden"></p>
+                    <p id="slotsValidationMsg" class="text-rose-500 text-sm font-semibold mt-2.5 hidden"></p>
                 </div>
 
-                <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 flex justify-between items-center">
-                    <span class="text-slate-600 font-medium">Total Harga (<span id="displayDuration">0</span> Jam)</span>
-                    <span class="text-2xl font-black text-blue-600" id="modalTotalPrice">Rp 0</span>
+                <div class="bg-slate-50 dark:bg-slate-950 p-4 rounded-2xl border border-slate-100 dark:border-slate-800 flex justify-between items-center shadow-inner">
+                    <span class="text-slate-600 dark:text-slate-400 font-semibold">Total Harga (<span id="displayDuration" class="text-brand-500">0</span> Jam)</span>
+                    <span class="text-2xl font-black text-brand-500" id="modalTotalPrice">Rp 0</span>
                 </div>
 
                 @auth
-                    <div class="mt-4 border border-blue-100 bg-blue-50 p-4 rounded-xl">
-                        <label class="block text-sm font-medium text-blue-800 mb-2 flex items-center">
+                    <div class="mt-4 border border-brand-100 dark:border-brand-900/30 bg-brand-50/40 dark:bg-brand-950/20 p-4 rounded-2xl">
+                        <label class="label text-brand-800 dark:text-brand-400 mb-2.5 flex items-center">
                             <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 5v2m0 4v2m0 4v2M5 5a2 2 0 00-2 2v3a2 2 0 110 4v3a2 2 0 002 2h14a2 2 0 002-2v-3a2 2 0 110-4V7a2 2 0 00-2-2H5z"></path></svg>
                             Gunakan Voucher Anda
                         </label>
                         @if(isset($ownedVouchers) && count($ownedVouchers) > 0)
-                            <select name="promo_id" id="promoSelect" onchange="updatePriceDisplay()" class="w-full rounded-lg border-blue-200 focus:border-blue-500 focus:ring-blue-500 text-sm text-slate-700">
+                            <select name="promo_id" id="promoSelect" onchange="updatePriceDisplay()" class="w-full rounded-2xl border-brand-200 focus:border-brand-500 focus:ring-brand-500/20 text-sm bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300">
                                 <option value="">-- Tidak Pakai Voucher --</option>
                                 @foreach($ownedVouchers as $voucher)
                                     <option value="{{ $voucher->id }}" data-discount="{{ $voucher->discount_percent }}">{{ $voucher->code }} (Diskon {{ $voucher->discount_percent }}%)</option>
                                 @endforeach
                             </select>
                         @else
-                            <div class="text-sm text-blue-700 bg-white/60 p-3 rounded-lg border border-blue-100 flex items-center justify-between">
+                            <div class="text-sm text-brand-700 dark:text-brand-400 bg-white/60 dark:bg-slate-900/60 p-3.5 rounded-xl border border-brand-100/40 dark:border-brand-900/30 flex items-center justify-between">
                                 <span>Anda belum memiliki voucher aktif.</span>
-                                <a href="{{ route('vouchers.index') }}" class="bg-blue-600 text-white px-3 py-1 rounded text-xs font-bold hover:bg-blue-700">Tukar Poin</a>
+                                <a href="{{ route('vouchers.index') }}" class="btn-primary py-1 px-3 text-xs font-bold shadow-sm">Tukar Poin</a>
                             </div>
                         @endif
                     </div>
                 @endauth
 
-                <button type="submit" id="btnSubmit" disabled class="w-full bg-blue-600 hover:bg-blue-700 disabled:bg-slate-300 disabled:cursor-not-allowed text-white font-bold py-3 rounded-xl transition-transform active:scale-95">
+                <button type="submit" id="btnSubmit" disabled class="w-full btn-primary py-3.5 rounded-2xl font-bold shadow-soft">
                     @auth Konfirmasi Booking @else Lanjut Booking (Guest) @endauth
                 </button>
             </form>
@@ -263,6 +305,7 @@
 
             document.getElementById('slotsGrid').classList.add('hidden');
             document.getElementById('slotsLoading').classList.remove('hidden');
+            document.getElementById('slotsError').classList.add('hidden');
             
             try {
                 const response = await fetch(`{{ url('/api/courts') }}/${currentCourtId}/slots?date=${date}`);
@@ -278,10 +321,10 @@
                     btn.dataset.index = index;
                     
                     if (slot.available) {
-                        btn.className = 'py-2 rounded border text-sm font-medium transition-colors hover:bg-blue-50 hover:border-blue-300 border-slate-200 bg-white text-slate-700';
+                        btn.className = 'py-2.5 px-2 rounded-2xl border text-sm font-semibold transition-all duration-200 hover:bg-brand-50 hover:border-brand-300 dark:hover:bg-slate-800 border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/50 text-slate-700 dark:text-slate-300';
                         btn.onclick = () => toggleSlot(index);
                     } else {
-                        btn.className = 'py-2 rounded border border-red-200 bg-red-50 text-red-400 text-sm font-medium cursor-not-allowed';
+                        btn.className = 'py-2.5 px-2 rounded-2xl border border-rose-200/50 dark:border-rose-950/20 bg-rose-50/40 dark:bg-rose-950/20 text-rose-500 dark:text-rose-400 text-sm font-semibold cursor-not-allowed';
                         btn.disabled = true;
                     }
                     
@@ -289,22 +332,18 @@
                 });
                 
                 document.getElementById('slotsGrid').classList.remove('hidden');
-                document.getElementById('slotsError').classList.add('hidden');
             } catch (e) {
                 console.error(e);
                 const grid = document.getElementById('slotsGrid');
                 grid.innerHTML = '';
                 grid.classList.remove('hidden');
-                const errorEl = document.getElementById('slotsError');
-                errorEl.textContent = 'Gagal memuat jadwal. Silakan coba lagi.';
-                errorEl.classList.remove('hidden');
+                document.getElementById('slotsError').classList.remove('hidden');
             } finally {
                 document.getElementById('slotsLoading').classList.add('hidden');
             }
         }
 
         function toggleSlot(index) {
-            const btn = document.querySelector(`button[data-index="${index}"]`);
             const slotIndex = selectedSlots.indexOf(index);
             
             if (slotIndex > -1) {
@@ -325,8 +364,8 @@
                 }
             }
             
-            // Limit to 4 hours (based on Supah Ano rules max 4 hours usually, or general rule)
-            if (selectedSlots.length > 4) {
+            // Limit to 5 hours (as per form rules min 1 max 5)
+            if (selectedSlots.length > 5) {
                 selectedSlots.shift();
             }
 
@@ -341,9 +380,9 @@
                 
                 const idx = parseInt(btn.dataset.index);
                 if (selectedSlots.includes(idx)) {
-                    btn.className = 'py-2 rounded border border-green-500 bg-green-500 text-white text-sm font-bold shadow-md transform scale-105 transition-all';
+                    btn.className = 'py-2.5 px-2 rounded-2xl border border-brand-500 bg-brand-500 text-white text-sm font-bold shadow-soft transform scale-105 transition-all';
                 } else {
-                    btn.className = 'py-2 rounded border text-sm font-medium transition-colors hover:bg-blue-50 hover:border-blue-300 border-slate-200 bg-white text-slate-700';
+                    btn.className = 'py-2.5 px-2 rounded-2xl border text-sm font-semibold transition-all duration-200 hover:bg-brand-50 hover:border-brand-300 dark:hover:bg-slate-800 border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/50 text-slate-700 dark:text-slate-300';
                 }
             });
         }
@@ -366,7 +405,6 @@
             document.getElementById('modalTotalPrice').textContent = 'Rp ' + total.toLocaleString('id-ID');
             
             const btnSubmit = document.getElementById('btnSubmit');
-            const error = document.getElementById('slotsError');
             
             if (duration > 0) {
                 btnSubmit.disabled = false;
