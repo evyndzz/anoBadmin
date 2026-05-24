@@ -83,7 +83,7 @@
     <!-- User Profile & Logout (Bottom of Sidebar) -->
     <div class="p-4 mb-2">
         <div class="flex items-center rounded-2xl" :class="sidebarExpanded ? 'bg-slate-50 dark:bg-slate-850/60 p-3 justify-between border border-slate-100/50 dark:border-slate-800/40' : 'justify-center p-0'">
-            <div class="flex items-center" :class="sidebarExpanded ? '' : 'justify-center'">
+            <a href="{{ route('profile.edit') }}" class="flex items-center hover:opacity-85 transition-opacity" :class="sidebarExpanded ? '' : 'justify-center'" title="Ubah Profil">
                 <div class="w-10 h-10 rounded-full bg-brand-100 dark:bg-brand-900/40 flex items-center justify-center flex-shrink-0 border border-brand-200 dark:border-brand-800/60">
                     <span class="text-brand-700 dark:text-brand-400 font-bold text-sm">{{ substr(Auth::user()->name, 0, 1) }}</span>
                 </div>
@@ -91,8 +91,7 @@
                     <div class="text-sm font-bold text-slate-800 dark:text-white truncate">{{ Auth::user()->name }}</div>
                     <div class="text-xs text-slate-500 dark:text-slate-400 truncate">{{ Auth::user()->email }}</div>
                 </div>
-            </div>
-            
+            </a>
             <form method="POST" action="{{ route('logout') }}" x-show="sidebarExpanded">
                 @csrf
                 <button type="submit" class="text-slate-400 hover:text-rose-500 hover:bg-white dark:hover:bg-slate-800 rounded-xl p-1.5 transition-colors focus:outline-none" title="Log Out">
