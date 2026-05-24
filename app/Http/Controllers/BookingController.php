@@ -172,7 +172,8 @@ class BookingController extends Controller
             'date' => $request->date,
             'total_price' => $finalPrice,
             'discount_applied' => $discount,
-            'status' => $status
+            'status' => $status,
+            'paid_at' => $status === 'completed' ? now() : null,
         ]);
 
         BookingDetail::create([
@@ -300,7 +301,10 @@ class BookingController extends Controller
             'proof_image' => null
         ]);
 
-        $booking->update(['status' => 'paid']);
+        $booking->update([
+            'status' => 'paid',
+            'paid_at' => now(),
+        ]);
 
         // Jika user login, tambahkan poin
         if ($booking->user_id) {

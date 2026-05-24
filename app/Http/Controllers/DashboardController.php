@@ -6,6 +6,7 @@ use App\Models\Booking;
 use App\Models\Court;
 use App\Models\User;
 use App\Services\RecommendationService;
+use App\Services\GeminiAnalyticsService;
 use Illuminate\Http\Request;
 
 class DashboardController extends Controller
@@ -81,5 +82,59 @@ class DashboardController extends Controller
         $schedule = $user->memberSchedules()->with('court')->first();
 
         return view('dashboard.user', compact('bookings', 'points', 'membershipRec', 'promoRec', 'schedule'));
+    }
+
+    /**
+     * Analyze revenue using Gemini AI.
+     *
+     * @param Request $request
+     * @param GeminiAnalyticsService $geminiService
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function analyzeRevenue(Request $request, GeminiAnalyticsService $geminiService)
+    {
+        try {
+            $request->validate([
+                'period' => 'required|in:7,30,90,custom',
+                'start_date' => 'required_if:period,custom|date|nullable',
+                'end_date' => 'required_if:period,custom|date|nullable|after_or_equal:start_date',
+            ]);
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            return response()->json([
+                'success' => false,
+                'message' => $e->validator->errors()->first()
+            ], 422);
+        }
+
+        $now = \Illuminate\Support\Carbon::now();
+
+        if ($request->period === 'custom') {
+            $startDate = \Illuminate\Support\Carbon::parse($request->start_date)->startOfDay();
+            $endDate = \Illuminate\Support\Carbon::parse($request->end_date)->endOfDay();
+            // Compute inclusive range length
+            $days = $startDate->diffInDays($endDate) + 1;
+            if ($days > 365) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Rentang tanggal custom maksimal adalah 365 hari.'
+                ], 422);
+            }
+            $periodLabel = "Periode Kustom (" . \Illuminate\Support\Carbon::parse($request->start_date)->format('d M Y') . " - " . \Illuminate\Support\Carbon::parse($request->end_date)->format('d M Y') . ")";
+        } else {
+            $days = intval($request->period);
+            $startDate = $now->copy()->subDays($days - 1)->startOfDay();
+            $endDate = $now->copy()->endOfDay();
+            $periodLabel = "{$days} Hari Terakhir";
+        }
+
+        $result = $geminiService->analyzeRevenue($startDate, $endDate);
+
+        if (!$result['success']) {
+            return response()->json($result, 400);
+        }
+
+        $result['period_label'] = $periodLabel;
+
+        return response()->json($result);
     }
 }

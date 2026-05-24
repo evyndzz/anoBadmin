@@ -33,6 +33,7 @@ class AdminController extends Controller
         }
 
         $booking->status = 'completed';
+        $booking->paid_at = now();
         $booking->save();
 
         // Tambahkan poin jika user yang booking (bukan guest)
@@ -71,6 +72,7 @@ class AdminController extends Controller
         }
 
         $booking->status = 'completed';
+        $booking->paid_at = now();
         $booking->save();
 
         \App\Models\Payment::updateOrCreate(
