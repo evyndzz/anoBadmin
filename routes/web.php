@@ -43,7 +43,7 @@ Route::middleware('auth')->group(function () {
     // Dashboard routes based on roles
     Route::prefix('admin')->middleware('role:admin')->name('admin.')->group(function() {
         Route::get('/dashboard', [DashboardController::class, 'admin'])->name('dashboard');
-        Route::post('/ai/analyze-revenue', [DashboardController::class, 'analyzeRevenue'])->name('ai.analyze-revenue');
+        Route::post('/analytics/revenue', [DashboardController::class, 'analyzeRevenue'])->name('analytics.revenue');
         
         Route::get('/memberships', [\App\Http\Controllers\AdminController::class, 'memberships'])->name('memberships.index');
         Route::get('/vouchers', [\App\Http\Controllers\AdminController::class, 'vouchers'])->name('vouchers.index');

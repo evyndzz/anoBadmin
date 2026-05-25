@@ -122,71 +122,25 @@
                 </div>
             </div>
 
-            <!-- AI Revenue Analyst Card -->
+            <!-- Smart Revenue Analyzer Card -->
             <div class="card bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-850 shadow-soft rounded-4xl p-6 transition-all duration-300">
-                <style>
-                    #ai-rendered-content h2 {
-                        font-size: 1.25rem;
-                        font-weight: 800;
-                        margin-top: 1.5rem;
-                        margin-bottom: 0.75rem;
-                        color: #1e293b; /* slate-800 */
-                        border-bottom: 2px solid #f1f5f9; /* slate-100 */
-                        padding-bottom: 0.25rem;
-                    }
-                    .dark #ai-rendered-content h2 {
-                        color: #f8fafc; /* slate-50 */
-                        border-bottom-color: #334155; /* slate-700 */
-                    }
-                    #ai-rendered-content h2:first-of-type {
-                        margin-top: 0;
-                    }
-                    #ai-rendered-content p {
-                        margin-bottom: 1rem;
-                        line-height: 1.625;
-                    }
-                    #ai-rendered-content ul {
-                        list-style-type: disc;
-                        padding-left: 1.5rem;
-                        margin-bottom: 1rem;
-                    }
-                    #ai-rendered-content li {
-                        margin-bottom: 0.5rem;
-                    }
-                    #ai-rendered-content strong {
-                        font-weight: 700;
-                        color: #0f172a; /* slate-900 */
-                    }
-                    .dark #ai-rendered-content strong {
-                        color: #ffffff;
-                    }
-                    #ai-rendered-content blockquote {
-                        border-left: 4px solid #6366f1; /* indigo-500 */
-                        padding-left: 1rem;
-                        font-style: italic;
-                        color: #475569; /* slate-600 */
-                        margin: 1rem 0;
-                    }
-                    .dark #ai-rendered-content blockquote {
-                        color: #cbd5e1; /* slate-300 */
-                    }
-                </style>
-                <div class="flex flex-col sm:flex-row justify-between sm:items-center gap-4 mb-6">
+                <div class="flex flex-col lg:flex-row justify-between lg:items-center gap-4 mb-6">
                     <div>
                         <div class="flex items-center gap-2">
-                            <span class="p-1.5 bg-indigo-50 dark:bg-indigo-950/50 text-indigo-600 dark:text-indigo-400 rounded-xl border border-indigo-100/40 dark:border-indigo-900/30">
-                                <svg class="w-5 h-5 animate-pulse text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                            <span class="p-1.5 bg-emerald-50 dark:bg-emerald-950/50 text-emerald-600 dark:text-emerald-400 rounded-xl border border-emerald-100/40 dark:border-emerald-900/30">
+                                <svg class="w-5 h-5 text-emerald-600 dark:text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 002 2h2a2 2 0 002-2"></path></svg>
                             </span>
-                            <h3 class="text-xl font-bold text-slate-850 dark:text-white tracking-tight">AI Revenue Analyst</h3>
+                            <h3 class="text-xl font-bold text-slate-850 dark:text-white tracking-tight">Smart Revenue Analyzer</h3>
+                            <span class="text-[10px] font-black tracking-wider uppercase bg-emerald-100 dark:bg-emerald-950/80 text-emerald-700 dark:text-emerald-400 px-2.5 py-0.5 rounded-full border border-emerald-200 dark:border-emerald-900/40 animate-pulse">Rule-Based Engine</span>
                         </div>
-                        <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Gunakan analisis cerdas Gemini AI untuk meninjau tren, hari puncak, dan proyeksi pendapatan.</p>
+                        <p class="text-xs text-slate-500 dark:text-slate-400 mt-1.5">Analisis pendapatan mendalam harian, okupansi, skor bisnis, proyeksi target bulanan, dan rekomendasi aksi strategis.</p>
                     </div>
                     
                     <!-- Controls -->
-                    <form id="ai-analysis-form" class="flex flex-wrap items-center gap-3">
+                    <form id="revenue-analyzer-form" class="flex flex-wrap items-center gap-3">
                         @csrf
                         <div>
-                            <select id="ai-period-select" name="period" class="bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl py-2 px-3 text-xs font-bold text-slate-700 dark:text-slate-350 focus:outline-none focus:ring-2 focus:ring-brand-500">
+                            <select id="analyzer-period-select" name="period" class="bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl py-2 px-3 text-xs font-bold text-slate-700 dark:text-slate-350 focus:outline-none focus:ring-2 focus:ring-brand-500">
                                 <option value="7" selected>7 Hari Terakhir</option>
                                 <option value="30">30 Hari Terakhir</option>
                                 <option value="90">90 Hari Terakhir</option>
@@ -195,72 +149,208 @@
                         </div>
                         
                         <!-- Conditional Custom Dates -->
-                        <div id="ai-custom-dates" class="hidden flex items-center gap-2">
-                            <input type="date" id="ai-start-date" name="start_date" class="bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl py-2 px-2 text-xs font-semibold text-slate-700 dark:text-slate-350 focus:outline-none focus:ring-2 focus:ring-brand-500">
+                        <div id="analyzer-custom-dates" class="hidden flex items-center gap-2">
+                            <input type="date" id="analyzer-start-date" name="start_date" class="bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl py-2 px-2 text-xs font-semibold text-slate-700 dark:text-slate-350 focus:outline-none focus:ring-2 focus:ring-brand-500">
                             <span class="text-xs text-slate-400">s/d</span>
-                            <input type="date" id="ai-end-date" name="end_date" class="bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl py-2 px-2 text-xs font-semibold text-slate-700 dark:text-slate-350 focus:outline-none focus:ring-2 focus:ring-brand-500">
+                            <input type="date" id="analyzer-end-date" name="end_date" class="bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl py-2 px-2 text-xs font-semibold text-slate-700 dark:text-slate-350 focus:outline-none focus:ring-2 focus:ring-brand-500">
                         </div>
                         
-                        <button type="submit" id="ai-analyze-btn" class="btn-primary py-2 px-4 rounded-xl text-xs font-bold shadow-soft flex items-center gap-2 transition duration-250 active:scale-95">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 .364l-.707 .707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 113.536 0z"></path></svg>
-                            <span>Analisis dengan AI</span>
+                        <button type="submit" id="analyzer-btn" class="btn-primary py-2 px-4 rounded-xl text-xs font-bold shadow-soft flex items-center gap-2 transition duration-250 active:scale-95">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path></svg>
+                            <span>Analisis Pendapatan</span>
                         </button>
                     </form>
                 </div>
                 
                 <!-- Output Container -->
-                <div id="ai-output-container" class="bg-slate-50/50 dark:bg-slate-950/40 rounded-3xl border border-slate-100 dark:border-slate-850 p-6 min-h-[220px] flex flex-col justify-center transition-all duration-300">
+                <div id="analyzer-output-container" class="bg-slate-50/50 dark:bg-slate-950/40 rounded-3xl border border-slate-100 dark:border-slate-850 p-6 min-h-[220px] flex flex-col justify-center transition-all duration-300">
                     <!-- Empty State -->
-                    <div id="ai-state-empty" class="text-center py-8">
+                    <div id="analyzer-state-empty" class="text-center py-8">
                         <div class="inline-flex p-4 bg-slate-100 dark:bg-slate-900 text-slate-400 dark:text-slate-500 rounded-full mb-3">
-                            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.663 17h4.673M12 3v1m6.364 .364l-.707 .707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 113.536 0z"></path></svg>
+                            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 002 2h2a2 2 0 002-2"></path></svg>
                         </div>
-                        <h4 class="text-sm font-bold text-slate-700 dark:text-slate-350">Siap Menganalisis</h4>
-                        <p class="text-xs text-slate-450 dark:text-slate-500 max-w-md mx-auto mt-1">Pilih periode di atas lalu klik tombol "Analisis dengan AI" untuk mulai memproses data pendapatan menggunakan kecerdasan buatan.</p>
+                        <h4 id="analyzer-empty-title" class="text-sm font-bold text-slate-700 dark:text-slate-350">Siap Menganalisis Pendapatan</h4>
+                        <p id="analyzer-empty-desc" class="text-xs text-slate-450 dark:text-slate-500 max-w-md mx-auto mt-1">Pilih periode di atas lalu klik tombol "Analisis Pendapatan" untuk memproses intelijen finansial real-time.</p>
                     </div>
 
                     <!-- Loading Skeleton -->
-                    <div id="ai-state-loading" class="hidden space-y-4 py-4">
-                        <div class="flex items-center space-x-3 mb-2">
-                            <div class="h-5 w-32 bg-slate-200 dark:bg-slate-800 rounded animate-pulse"></div>
-                            <div class="h-3 w-16 bg-slate-150 dark:bg-slate-850 rounded animate-pulse"></div>
+                    <div id="analyzer-state-loading" class="hidden space-y-6 py-4">
+                        <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                            <div class="h-20 bg-slate-200 dark:bg-slate-800 rounded-2xl animate-pulse"></div>
+                            <div class="h-20 bg-slate-200 dark:bg-slate-800 rounded-2xl animate-pulse"></div>
+                            <div class="h-20 bg-slate-200 dark:bg-slate-800 rounded-2xl animate-pulse"></div>
+                            <div class="h-20 bg-slate-200 dark:bg-slate-800 rounded-2xl animate-pulse"></div>
                         </div>
                         <div class="space-y-2">
                             <div class="h-4 w-full bg-slate-200 dark:bg-slate-800 rounded animate-pulse"></div>
                             <div class="h-4 w-5/6 bg-slate-200 dark:bg-slate-800 rounded animate-pulse"></div>
-                            <div class="h-4 w-4/5 bg-slate-200 dark:bg-slate-800 rounded animate-pulse"></div>
-                        </div>
-                        <div class="pt-4 space-y-2">
-                            <div class="h-5 w-40 bg-slate-200 dark:bg-slate-800 rounded animate-pulse"></div>
-                            <div class="h-4 w-full bg-slate-200 dark:bg-slate-800 rounded animate-pulse"></div>
-                            <div class="h-4 w-11/12 bg-slate-200 dark:bg-slate-800 rounded animate-pulse"></div>
                         </div>
                     </div>
 
                     <!-- Error Banner -->
-                    <div id="ai-state-error" class="hidden flex items-start gap-3 p-4 bg-rose-50 dark:bg-rose-950/20 border border-rose-100 dark:border-rose-900/35 rounded-2xl animate-fade-in">
+                    <div id="analyzer-state-error" class="hidden flex items-start gap-3 p-4 bg-rose-50 dark:bg-rose-950/20 border border-rose-100 dark:border-rose-900/35 rounded-2xl animate-fade-in">
                         <div class="text-rose-550 dark:text-rose-450 flex-shrink-0 mt-0.5">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
                         </div>
                         <div>
                             <h4 class="text-xs font-bold text-rose-800 dark:text-rose-400">Gagal Melakukan Analisis</h4>
-                            <p id="ai-error-message" class="text-xs text-rose-700 dark:text-rose-450 mt-0.5">Terjadi kesalahan pada server saat memproses data. Silakan coba beberapa saat lagi.</p>
+                            <p id="analyzer-error-message" class="text-xs text-rose-700 dark:text-rose-450 mt-0.5">Terjadi kesalahan pada server saat memproses data. Silakan coba beberapa saat lagi.</p>
                         </div>
                     </div>
 
                     <!-- Content State -->
-                    <div id="ai-state-content" class="hidden">
-                        <div class="prose prose-slate dark:prose-invert max-w-none text-slate-700 dark:text-slate-300 text-sm leading-relaxed" id="ai-rendered-content">
-                            <!-- Gemini Markdown output will be rendered here -->
-                        </div>
-                        <div class="mt-6 pt-4 border-t border-slate-100 dark:border-slate-850/60 flex flex-wrap justify-between items-center text-xs text-slate-400 dark:text-slate-500">
-                            <div>
-                                Dihasilkan oleh Gemini &middot; <span id="ai-generated-timestamp">-</span>
+                    <div id="analyzer-state-content" class="hidden space-y-6">
+                        
+                        <!-- Top Summary Widgets (Score & Trend & Growth) -->
+                        <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                            <!-- Widget: Score -->
+                            <div class="bg-white dark:bg-slate-900 p-5 rounded-3xl border border-slate-100 dark:border-slate-805 shadow-soft-sm flex items-center justify-between">
+                                <div class="space-y-1">
+                                    <div class="text-xs text-slate-405 dark:text-slate-500 font-bold uppercase tracking-wider">Skor Kinerja</div>
+                                    <div class="flex items-baseline gap-1.5">
+                                        <span id="analyzer-score-val" class="text-3xl font-black text-slate-800 dark:text-white">-</span>
+                                        <span class="text-xs text-slate-400">/100</span>
+                                    </div>
+                                </div>
+                                <div id="analyzer-grade-badge" class="h-12 w-12 rounded-2xl flex items-center justify-center font-black text-xl shadow-soft">
+                                    -
+                                </div>
                             </div>
-                            <div class="font-semibold text-brand-600 dark:text-brand-450 bg-brand-50/50 dark:bg-brand-950/30 px-2 py-0.5 rounded-lg border border-brand-100/40 dark:border-brand-900/15" id="ai-period-badge">
+                            
+                            <!-- Widget: Trend -->
+                            <div class="bg-white dark:bg-slate-900 p-5 rounded-3xl border border-slate-100 dark:border-slate-805 shadow-soft-sm flex flex-col justify-between">
+                                <div class="text-xs text-slate-450 dark:text-slate-500 font-bold uppercase tracking-wider">Tren Pendapatan</div>
+                                <div class="mt-2.5">
+                                    <span id="analyzer-trend-badge" class="px-3.5 py-1.5 rounded-full text-xs font-black tracking-wide border inline-block shadow-sm">
+                                        -
+                                    </span>
+                                </div>
+                            </div>
+
+                            <!-- Widget: Growth -->
+                            <div class="bg-white dark:bg-slate-900 p-5 rounded-3xl border border-slate-100 dark:border-slate-805 shadow-soft-sm flex flex-col justify-between">
+                                <div class="text-xs text-slate-450 dark:text-slate-500 font-bold uppercase tracking-wider">Pertumbuhan (Growth)</div>
+                                <div class="mt-1">
+                                    <div id="analyzer-growth-val" class="text-xl font-extrabold text-slate-850 dark:text-white">-</div>
+                                    <div class="text-[10px] text-slate-400 dark:text-slate-550 mt-0.5">vs periode setara sebelumnya</div>
+                                </div>
+                            </div>
+
+                            <!-- Widget: Occupancy -->
+                            <div class="bg-white dark:bg-slate-900 p-5 rounded-3xl border border-slate-100 dark:border-slate-805 shadow-soft-sm flex flex-col justify-between">
+                                <div class="text-xs text-slate-450 dark:text-slate-500 font-bold uppercase tracking-wider">Okupansi Pemesanan</div>
+                                <div class="mt-1">
+                                    <div id="analyzer-occupancy-val" class="text-xl font-extrabold text-slate-850 dark:text-white">-</div>
+                                    <div class="text-[10px] text-slate-400 dark:text-slate-550 mt-0.5" id="analyzer-bookings-count-label">0 sukses / 0 batal</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Statistics Details Grid -->
+                        <div class="bg-white dark:bg-slate-900 rounded-3xl border border-slate-100 dark:border-slate-800 p-5 shadow-soft-sm">
+                            <h4 class="text-sm font-bold text-slate-850 dark:text-white mb-4 border-b border-slate-100 dark:border-slate-800/60 pb-2">Rincian Statistik Keuangan</h4>
+                            <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+                                <div>
+                                    <div class="text-[10px] text-slate-400 dark:text-slate-500 uppercase tracking-wider font-bold">Total Omzet</div>
+                                    <div class="text-base font-extrabold text-slate-850 dark:text-white mt-0.5" id="analyzer-stat-total">-</div>
+                                </div>
+                                <div>
+                                    <div class="text-[10px] text-slate-400 dark:text-slate-500 uppercase tracking-wider font-bold">Rata-rata Harian (Mean)</div>
+                                    <div class="text-base font-extrabold text-slate-850 dark:text-white mt-0.5" id="analyzer-stat-mean">-</div>
+                                </div>
+                                <div>
+                                    <div class="text-[10px] text-slate-400 dark:text-slate-500 uppercase tracking-wider font-bold">Nilai Tengah (Median)</div>
+                                    <div class="text-base font-extrabold text-slate-850 dark:text-white mt-0.5" id="analyzer-stat-median">-</div>
+                                </div>
+                                <div>
+                                    <div class="text-[10px] text-slate-400 dark:text-slate-500 uppercase tracking-wider font-bold">Deviasi Standar (Std Dev)</div>
+                                    <div class="text-base font-extrabold text-slate-850 dark:text-white mt-0.5" id="analyzer-stat-stddev">-</div>
+                                </div>
+                                <div>
+                                    <div class="text-[10px] text-slate-400 dark:text-slate-500 uppercase tracking-wider font-bold">Koefisien Variasi</div>
+                                    <div class="text-base font-extrabold text-slate-850 dark:text-white mt-0.5" id="analyzer-stat-cv">-</div>
+                                </div>
+                                <div>
+                                    <div class="text-[10px] text-slate-400 dark:text-slate-500 uppercase tracking-wider font-bold">Pendapatan Terendah</div>
+                                    <div class="text-base font-extrabold text-slate-850 dark:text-white mt-0.5" id="analyzer-stat-min">-</div>
+                                </div>
+                                <div class="col-span-1">
+                                    <div class="text-[10px] text-rose-500 dark:text-rose-450 uppercase tracking-wider font-black flex items-center gap-1">
+                                        <span class="w-1.5 h-1.5 rounded-full bg-rose-500"></span> Hari Tersepi
+                                    </div>
+                                    <div class="text-xs font-extrabold text-slate-800 dark:text-slate-200 mt-1" id="analyzer-stat-lowday">-</div>
+                                </div>
+                                <div class="col-span-1">
+                                    <div class="text-[10px] text-emerald-500 dark:text-emerald-450 uppercase tracking-wider font-black flex items-center gap-1">
+                                        <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> Hari Puncak (Peak)
+                                    </div>
+                                    <div class="text-xs font-extrabold text-slate-800 dark:text-slate-200 mt-1" id="analyzer-stat-peakday">-</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Month Projection Section (Dynamic) -->
+                        <div id="analyzer-projection-card" class="bg-gradient-to-br from-brand-50 to-indigo-50/50 dark:from-brand-950/20 dark:to-indigo-950/10 rounded-3xl border border-brand-100/50 dark:border-indigo-900/35 p-5 shadow-soft-sm">
+                            <div class="flex items-center gap-2 mb-3">
+                                <span class="p-1 bg-brand-100 dark:bg-brand-900/60 text-brand-600 dark:text-brand-400 rounded-lg">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
+                                </span>
+                                <h4 class="text-sm font-black text-brand-900 dark:text-brand-300">Proyeksi Pendapatan Akhir Bulan</h4>
+                            </div>
+                            <p class="text-xs text-slate-600 dark:text-slate-450 leading-relaxed mb-4">Estimasi total pendapatan di sisa hari bulan berjalan dihitung menggunakan interpolasi <strong>Linear Regression</strong> (tren harian) dan <strong>Moving Average 7-hari</strong>.</p>
+                            
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                                <div class="bg-white/80 dark:bg-slate-900/80 p-4 rounded-2xl border border-brand-100/30 dark:border-brand-900/20 shadow-sm">
+                                    <div class="text-[10px] text-slate-450 dark:text-slate-500 font-bold uppercase tracking-wider">Proyeksi Pesimis (Low)</div>
+                                    <div class="text-base font-black text-slate-800 dark:text-slate-100 mt-0.5" id="analyzer-proj-low">-</div>
+                                    <div class="text-[10px] text-rose-600 dark:text-rose-450 font-bold mt-1" id="analyzer-proj-low-pct">-</div>
+                                </div>
+                                <div class="bg-white/80 dark:bg-slate-900/80 p-4 rounded-2xl border border-brand-100/40 dark:border-brand-900/30 shadow-sm relative overflow-hidden">
+                                    <div class="absolute top-0 right-0 bg-brand-500 text-white text-[8px] font-black px-2 py-0.5 rounded-bl-lg uppercase tracking-wider">Median</div>
+                                    <div class="text-[10px] text-slate-450 dark:text-slate-500 font-bold uppercase tracking-wider">Proyeksi Tengah (Mid)</div>
+                                    <div class="text-lg font-black text-brand-600 dark:text-brand-400 mt-0.5" id="analyzer-proj-mid">-</div>
+                                    <div class="text-[10px] text-slate-500 dark:text-slate-400 font-semibold mt-1">Estimasi pencapaian target bulanan</div>
+                                </div>
+                                <div class="bg-white/80 dark:bg-slate-900/80 p-4 rounded-2xl border border-brand-100/30 dark:border-brand-900/20 shadow-sm">
+                                    <div class="text-[10px] text-slate-450 dark:text-slate-500 font-bold uppercase tracking-wider">Proyeksi Optimis (High)</div>
+                                    <div class="text-base font-black text-slate-800 dark:text-slate-100 mt-0.5" id="analyzer-proj-high">-</div>
+                                    <div class="text-[10px] text-emerald-600 dark:text-emerald-400 font-bold mt-1" id="analyzer-proj-high-pct">-</div>
+                                </div>
+                            </div>
+
+                            <!-- Target Progress Bar -->
+                            <div class="mt-4 space-y-1.5 bg-white/40 dark:bg-slate-900/40 p-3 rounded-2xl border border-brand-100/20 dark:border-brand-900/10">
+                                <div class="flex justify-between text-xs font-bold text-slate-700 dark:text-slate-350">
+                                    <span>Kemajuan Target Bulanan (Prorated)</span>
+                                    <span id="analyzer-proj-progress-pct" class="text-brand-600 dark:text-brand-400 font-extrabold">-</span>
+                                </div>
+                                <div class="w-full bg-slate-200 dark:bg-slate-800 rounded-full h-3 overflow-hidden shadow-inner border border-slate-100 dark:border-slate-850/60">
+                                    <div id="analyzer-proj-progress-bar" class="bg-gradient-to-r from-emerald-500 to-brand-500 h-full rounded-full transition-all duration-500" style="width: 0%"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Recommendations Section -->
+                        <div>
+                            <h4 class="text-sm font-bold text-slate-850 dark:text-white mb-3 flex items-center gap-1.5">
+                                <svg class="w-4 h-4 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 .364l-.707 .707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 113.536 0z"></path></svg>
+                                Rekomendasi Bisnis Cerdas
+                            </h4>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="analyzer-recommendations-container">
+                                <!-- Recommendation cards will be dynamically injected here -->
+                            </div>
+                        </div>
+
+                        <!-- Footer -->
+                        <div class="pt-4 border-t border-slate-100 dark:border-slate-850/60 flex flex-wrap justify-between items-center text-xs text-slate-400 dark:text-slate-500">
+                            <div>
+                                Dihasilkan oleh Mesin Analitik Cerdas (Rule-Based Engine) &middot; <span id="analyzer-generated-timestamp">-</span>
+                            </div>
+                            <div class="font-bold text-brand-600 dark:text-brand-455 bg-brand-50/50 dark:bg-brand-950/30 px-3 py-1 rounded-xl border border-brand-100/40 dark:border-brand-900/15" id="analyzer-period-badge">
                                 -
                             </div>
                         </div>
+
                     </div>
                 </div>
             </div>
@@ -479,44 +569,83 @@
             }
         });
     </script>
-    <!-- Marked and DOMPurify for AI Revenue Analyst -->
-    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/dompurify/dist/purify.min.js"></script>
 
+    <!-- Smart Revenue Analyzer Script -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const periodSelect = document.getElementById('ai-period-select');
-            const customDatesDiv = document.getElementById('ai-custom-dates');
-            const startDateInput = document.getElementById('ai-start-date');
-            const endDateInput = document.getElementById('ai-end-date');
-            const form = document.getElementById('ai-analysis-form');
-            const btn = document.getElementById('ai-analyze-btn');
+            const periodSelect = document.getElementById('analyzer-period-select');
+            const customDatesDiv = document.getElementById('analyzer-custom-dates');
+            const startDateInput = document.getElementById('analyzer-start-date');
+            const endDateInput = document.getElementById('analyzer-end-date');
+            const form = document.getElementById('revenue-analyzer-form');
+            const btn = document.getElementById('analyzer-btn');
             const btnText = btn ? btn.querySelector('span') : null;
 
-            const stateEmpty = document.getElementById('ai-state-empty');
-            const stateLoading = document.getElementById('ai-state-loading');
-            const stateError = document.getElementById('ai-state-error');
-            const stateContent = document.getElementById('ai-state-content');
-            const errorMessage = document.getElementById('ai-error-message');
-            const renderedContent = document.getElementById('ai-rendered-content');
-            const generatedTimestamp = document.getElementById('ai-generated-timestamp');
-            const periodBadge = document.getElementById('ai-period-badge');
+            const stateEmpty = document.getElementById('analyzer-state-empty');
+            const emptyTitle = document.getElementById('analyzer-empty-title');
+            const emptyDesc = document.getElementById('analyzer-empty-desc');
+            const stateLoading = document.getElementById('analyzer-state-loading');
+            const stateError = document.getElementById('analyzer-state-error');
+            const stateContent = document.getElementById('analyzer-state-content');
+            const errorMessage = document.getElementById('analyzer-error-message');
+
+            const scoreVal = document.getElementById('analyzer-score-val');
+            const gradeBadge = document.getElementById('analyzer-grade-badge');
+            const trendBadge = document.getElementById('analyzer-trend-badge');
+            const growthVal = document.getElementById('analyzer-growth-val');
+            const occupancyVal = document.getElementById('analyzer-occupancy-val');
+            const bookingsCountLabel = document.getElementById('analyzer-bookings-count-label');
+
+            const statTotal = document.getElementById('analyzer-stat-total');
+            const statMean = document.getElementById('analyzer-stat-mean');
+            const statMedian = document.getElementById('analyzer-stat-median');
+            const statStdDev = document.getElementById('analyzer-stat-stddev');
+            const statCv = document.getElementById('analyzer-stat-cv');
+            const statMin = document.getElementById('analyzer-stat-min');
+            const statLowDay = document.getElementById('analyzer-stat-lowday');
+            const statPeakDay = document.getElementById('analyzer-stat-peakday');
+
+            const projectionCard = document.getElementById('analyzer-projection-card');
+            const projLow = document.getElementById('analyzer-proj-low');
+            const projLowPct = document.getElementById('analyzer-proj-low-pct');
+            const projMid = document.getElementById('analyzer-proj-mid');
+            const projHigh = document.getElementById('analyzer-proj-high');
+            const projHighPct = document.getElementById('analyzer-proj-high-pct');
+            const projProgressBar = document.getElementById('analyzer-proj-progress-bar');
+            const projProgressPct = document.getElementById('analyzer-proj-progress-pct');
+
+            const recommendationsContainer = document.getElementById('analyzer-recommendations-container');
+            const generatedTimestamp = document.getElementById('analyzer-generated-timestamp');
+            const periodBadge = document.getElementById('analyzer-period-badge');
 
             if (!form) return;
 
-            // Initialize custom dates visibility
-            if (periodSelect.value === 'custom') {
-                customDatesDiv.classList.remove('hidden');
-                startDateInput.required = true;
-                endDateInput.required = true;
-            }
+            // Currency formatting helper
+            const formatIDR = (num) => {
+                return new Intl.NumberFormat('id-ID', {
+                    style: 'currency',
+                    currency: 'IDR',
+                    maximumFractionDigits: 0
+                }).format(num);
+            };
 
+            // Format simple date helper
+            const formatDate = (dateStr) => {
+                if (!dateStr) return '-';
+                const dateObj = new Date(dateStr);
+                return dateObj.toLocaleDateString('id-ID', {
+                    day: 'numeric',
+                    month: 'short',
+                    year: 'numeric'
+                });
+            };
+
+            // Toggle custom dates view
             periodSelect.addEventListener('change', function() {
                 if (this.value === 'custom') {
                     customDatesDiv.classList.remove('hidden');
                     startDateInput.required = true;
                     endDateInput.required = true;
-                    // Default to today and 7 days ago if empty
                     const today = new Date().toISOString().split('T')[0];
                     const sevenDaysAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString().split('T')[0];
                     if (!startDateInput.value) startDateInput.value = sevenDaysAgo;
@@ -531,7 +660,6 @@
             form.addEventListener('submit', function(e) {
                 e.preventDefault();
 
-                // Validation for custom date difference
                 if (periodSelect.value === 'custom') {
                     const start = new Date(startDateInput.value);
                     const end = new Date(endDateInput.value);
@@ -547,7 +675,6 @@
                     }
                 }
 
-                // Show loading state
                 setLoadingState(true);
 
                 const formData = new FormData(form);
@@ -557,7 +684,7 @@
                     end_date: formData.get('end_date')
                 };
 
-                fetch('{{ route("admin.ai.analyze-revenue") }}', {
+                fetch('{{ route("admin.analytics.revenue") }}', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -568,72 +695,165 @@
                 })
                 .then(response => {
                     const contentType = response.headers.get('content-type');
-                    const isJson = contentType && contentType.includes('application/json');
-
+                    if (response.status === 400 || response.status === 422) {
+                        return response.json().then(err => { throw err; });
+                    }
                     if (!response.ok) {
-                        if (isJson) {
-                            return response.json().then(err => { throw err; });
-                        } else {
-                            return response.text().then(text => {
-                                let friendlyMessage = 'Terjadi kesalahan sistem pada server.';
-                                if (response.status === 403) {
-                                    friendlyMessage = 'Akses ditolak: Anda tidak memiliki izin untuk melakukan analisis ini.';
-                                } else if (response.status === 419) {
-                                    friendlyMessage = 'Sesi Anda telah berakhir. Harap muat ulang halaman dan coba lagi.';
-                                } else if (response.status === 500) {
-                                    friendlyMessage = 'Terjadi kesalahan internal pada server (Error 500).';
-                                } else if (response.status === 404) {
-                                    friendlyMessage = 'Layanan analisis tidak ditemukan.';
-                                }
-                                throw { message: friendlyMessage };
-                            });
-                        }
+                        throw { message: 'Terjadi kesalahan koneksi server (Error ' + response.status + ')' };
                     }
-
-                    if (isJson) {
-                        return response.json();
-                    } else {
-                        throw { message: 'Format respons dari server tidak valid (bukan JSON).' };
-                    }
+                    return response.json();
                 })
                 .then(data => {
-                    if (data.success) {
-                        // Render Markdown securely
-                        const rawHtml = marked.parse(data.markdown);
-                        const cleanHtml = DOMPurify.sanitize(rawHtml);
-                        renderedContent.innerHTML = cleanHtml;
-
-                        // Set metadata
-                        const dateObj = new Date(data.generated_at);
-                        const formattedTime = dateObj.toLocaleDateString('id-ID', {
+                    if (data.success && data.is_empty) {
+                        periodBadge.textContent = data.period_label;
+                        const now = new Date();
+                        const timeStr = now.toLocaleDateString('id-ID', {
                             day: '2-digit',
                             month: 'short',
                             year: 'numeric'
-                        }) + ' ' + dateObj.toLocaleTimeString('id-ID', {
+                        }) + ' ' + now.toLocaleTimeString('id-ID', {
                             hour: '2-digit',
                             minute: '2-digit'
                         }) + ' WIB';
+                        document.getElementById('analyzer-generated-timestamp').textContent = timeStr;
+                        if (emptyTitle) emptyTitle.textContent = 'Tidak ada data pada periode ini';
+                        if (emptyDesc) emptyDesc.textContent = 'Silakan pilih rentang waktu atau filter lain karena tidak ada transaksi yang terdaftar pada periode terpilih.';
+                        showState('empty');
+                        return;
+                    }
 
-                        generatedTimestamp.textContent = formattedTime;
+                    if (data.success && data.data) {
+                        const report = data.data;
+
+                        // 1. Scoring & Grade
+                        scoreVal.textContent = report.scoring.score;
+                        gradeBadge.textContent = report.scoring.grade;
+                        
+                        // Dynamic grade styling classes
+                        gradeBadge.className = 'h-12 w-12 rounded-2xl flex items-center justify-center font-black text-xl shadow-soft';
+                        if (report.scoring.grade === 'A') {
+                            gradeBadge.classList.add('bg-emerald-500', 'text-white');
+                        } else if (report.scoring.grade === 'B') {
+                            gradeBadge.classList.add('bg-indigo-500', 'text-white');
+                        } else if (report.scoring.grade === 'C') {
+                            gradeBadge.classList.add('bg-amber-500', 'text-white');
+                        } else {
+                            gradeBadge.classList.add('bg-rose-500', 'text-white');
+                        }
+
+                        // 2. Trend Badge
+                        trendBadge.textContent = report.growth.trend;
+                        trendBadge.className = 'px-3.5 py-1.5 rounded-full text-xs font-black tracking-wide border inline-block shadow-sm';
+                        
+                        if (report.growth.trend === 'Naik Pesat' || report.growth.trend === 'Naik') {
+                            trendBadge.classList.add('bg-emerald-50', 'text-emerald-700', 'border-emerald-200', 'dark:bg-emerald-950/50', 'dark:text-emerald-400', 'dark:border-emerald-900/30');
+                        } else if (report.growth.trend === 'Stabil') {
+                            trendBadge.classList.add('bg-amber-50', 'text-amber-700', 'border-amber-200', 'dark:bg-amber-950/50', 'dark:text-amber-400', 'dark:border-amber-900/30');
+                        } else {
+                            trendBadge.classList.add('bg-rose-50', 'text-rose-700', 'border-rose-200', 'dark:bg-rose-950/50', 'dark:text-rose-400', 'dark:border-rose-900/30');
+                        }
+
+                        // 3. Growth Value
+                        const growthSign = report.growth.growth_pct >= 0 ? '+' : '';
+                        growthVal.textContent = `${growthSign}${report.growth.growth_pct}%`;
+                        if (report.growth.growth_pct >= 0) {
+                            growthVal.className = 'text-xl font-extrabold text-emerald-600 dark:text-emerald-400';
+                        } else {
+                            growthVal.className = 'text-xl font-extrabold text-rose-600 dark:text-rose-400';
+                        }
+
+                        // 4. Occupancy Value
+                        occupancyVal.textContent = `${report.occupancy.occupancy_rate}%`;
+                        bookingsCountLabel.textContent = `${report.occupancy.successful_bookings} sukses / ${report.occupancy.cancelled_bookings} batal`;
+
+                        // 5. Financial Statistics Details
+                        statTotal.textContent = formatIDR(report.statistics.total);
+                        statMean.textContent = formatIDR(report.statistics.mean);
+                        statMedian.textContent = formatIDR(report.statistics.median);
+                        statStdDev.textContent = formatIDR(report.statistics.std_dev);
+                        statCv.textContent = report.statistics.coefficient_of_variation.toFixed(2);
+                        statMin.textContent = formatIDR(report.statistics.min);
+                        
+                        statLowDay.innerHTML = report.statistics.low_day.date 
+                            ? `<span class="block">${formatDate(report.statistics.low_day.date)}</span><span class="text-[10px] text-slate-500 font-semibold">${formatIDR(report.statistics.low_day.amount)}</span>`
+                            : '-';
+                        statPeakDay.innerHTML = report.statistics.peak_day.date
+                            ? `<span class="block text-emerald-600 dark:text-emerald-400 font-bold">${formatDate(report.statistics.peak_day.date)}</span><span class="text-[10px] text-slate-500 font-semibold">${formatIDR(report.statistics.peak_day.amount)}</span>`
+                            : '-';
+
+                        // 6. Projections (Hide if not available)
+                        if (report.projection) {
+                            projectionCard.classList.remove('hidden');
+                            projLow.textContent = formatIDR(report.projection.projection_low);
+                            projLowPct.textContent = `${report.projection.target_pct_low}% dari target`;
+                            projMid.textContent = formatIDR(report.projection.projection_mid);
+                            projHigh.textContent = formatIDR(report.projection.projection_high);
+                            projHighPct.textContent = `${report.projection.target_pct_high}% dari target`;
+
+                            // Target Progress Bar
+                            const midPct = report.projection.target_pct_mid;
+                            projProgressPct.textContent = `${midPct}%`;
+                            projProgressBar.style.width = `${Math.min(100, midPct)}%`;
+                        } else {
+                            projectionCard.classList.add('hidden');
+                        }
+
+                        // 7. Recommendations
+                        recommendationsContainer.innerHTML = '';
+                        if (report.recommendations && report.recommendations.length > 0) {
+                            report.recommendations.forEach(rec => {
+                                const card = document.createElement('div');
+                                card.className = 'bg-slate-50 dark:bg-slate-950 p-4 rounded-2xl border border-slate-100 dark:border-slate-850 shadow-soft-sm flex flex-col justify-between gap-3 hover:border-brand-200 dark:hover:border-brand-900/40 transition-colors duration-250';
+                                
+                                // Color accent based on recommendation type
+                                let accentClass = 'bg-brand-50 text-brand-600 dark:bg-brand-950/40 dark:text-brand-450';
+                                if (rec.type === 'occupancy') accentClass = 'bg-amber-50 text-amber-600 dark:bg-amber-950/40 dark:text-amber-450';
+                                if (rec.type === 'membership' || rec.type === 'upsell') accentClass = 'bg-emerald-50 text-emerald-600 dark:bg-emerald-950/40 dark:text-emerald-450';
+                                if (rec.type === 'target') accentClass = 'bg-rose-50 text-rose-600 dark:bg-rose-950/40 dark:text-rose-450';
+
+                                card.innerHTML = `
+                                    <div class="space-y-1">
+                                        <div class="flex items-center gap-2">
+                                            <span class="w-2 h-2 rounded-full ${rec.type === 'target' ? 'bg-rose-500' : (rec.type === 'occupancy' ? 'bg-amber-500' : 'bg-emerald-500')}"></span>
+                                            <h5 class="text-xs font-black text-slate-850 dark:text-slate-200">${rec.title}</h5>
+                                        </div>
+                                        <p class="text-[11px] text-slate-500 dark:text-slate-400 leading-relaxed pl-4">${rec.description}</p>
+                                    </div>
+                                    <div class="pl-4">
+                                        <span class="inline-flex items-center text-[10px] font-black text-brand-650 dark:text-brand-400 hover:text-brand-700 transition cursor-pointer gap-0.5">
+                                            ${rec.action_label} &rarr;
+                                        </span>
+                                    </div>
+                                `;
+                                recommendationsContainer.appendChild(card);
+                            });
+                        } else {
+                            recommendationsContainer.innerHTML = `<div class="col-span-2 text-center text-xs text-slate-450 dark:text-slate-550 py-4">Tidak ada rekomendasi spesifik saat ini. Kinerja stabil.</div>`;
+                        }
+
+                        // Set Generated Timestamp
+                        const now = new Date();
+                        const timeStr = now.toLocaleDateString('id-ID', {
+                            day: '2-digit',
+                            month: 'short',
+                            year: 'numeric'
+                        }) + ' ' + now.toLocaleTimeString('id-ID', {
+                            hour: '2-digit',
+                            minute: '2-digit'
+                        }) + ' WIB';
+                        
+                        generatedTimestamp.textContent = timeStr;
                         periodBadge.textContent = data.period_label;
 
-                        // Show content
+                        // Show report state
                         showState('content');
                     } else {
-                        showError(data.message || 'Terjadi kesalahan tidak dikenal.');
+                        showError(data.message || 'Gagal mengambil data pendapatan.');
                     }
                 })
                 .catch(error => {
-                    console.error('AI Revenue Analyst error:', error);
-                    let msg = 'Gagal terhubung dengan server. Harap periksa koneksi Anda.';
-                    if (error.message) {
-                        msg = error.message;
-                    } else if (error.errors) {
-                        // Laravel validation errors
-                        const firstKey = Object.keys(error.errors)[0];
-                        msg = error.errors[firstKey][0];
-                    }
-                    showError(msg);
+                    console.error('Analyzer error:', error);
+                    showError(error.message || 'Gagal terhubung dengan server. Harap periksa koneksi Anda.');
                 })
                 .finally(() => {
                     setLoadingState(false);
@@ -664,13 +884,15 @@
                         btn.classList.add('opacity-75', 'cursor-not-allowed');
                     }
                     if (btnText) btnText.textContent = 'Menganalisis...';
+                    if (emptyTitle) emptyTitle.textContent = 'Siap Menganalisis Pendapatan';
+                    if (emptyDesc) emptyDesc.textContent = 'Pilih periode di atas lalu klik tombol "Analisis Pendapatan" untuk memproses intelijen finansial real-time.';
                     showState('loading');
                 } else {
                     if (btn) {
                         btn.disabled = false;
                         btn.classList.remove('opacity-75', 'cursor-not-allowed');
                     }
-                    if (btnText) btnText.textContent = 'Analisis dengan AI';
+                    if (btnText) btnText.textContent = 'Analisis Pendapatan';
                 }
             }
         });

@@ -6,7 +6,7 @@ use App\Models\Booking;
 use App\Models\Court;
 use App\Models\User;
 use App\Services\RecommendationService;
-use App\Services\GeminiAnalyticsService;
+use App\Services\RevenueAnalyzerService;
 use Illuminate\Http\Request;
 
 class DashboardController extends Controller
@@ -85,13 +85,13 @@ class DashboardController extends Controller
     }
 
     /**
-     * Analyze revenue using Gemini AI.
+     * Analyze revenue using Rule-Based Engine.
      *
      * @param Request $request
-     * @param GeminiAnalyticsService $geminiService
+     * @param RevenueAnalyzerService $revenueService
      * @return \Illuminate\Http\JsonResponse
      */
-    public function analyzeRevenue(Request $request, GeminiAnalyticsService $geminiService)
+    public function analyzeRevenue(Request $request, RevenueAnalyzerService $revenueService)
     {
         try {
             $request->validate([
@@ -127,10 +127,13 @@ class DashboardController extends Controller
             $periodLabel = "{$days} Hari Terakhir";
         }
 
-        $result = $geminiService->analyzeRevenue($startDate, $endDate);
+        $result = $revenueService->analyze($startDate, $endDate);
 
         if (!$result['success']) {
-            return response()->json($result, 400);
+            return response()->json([
+                'success' => false,
+                'message' => $result['message'] ?? 'Gagal memproses data pendapatan.'
+            ], 400);
         }
 
         $result['period_label'] = $periodLabel;

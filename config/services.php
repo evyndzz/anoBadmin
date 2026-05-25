@@ -35,9 +35,8 @@ return [
         ],
     ],
 
-    'gemini' => [
-        'key' => env('GEMINI_API_KEY'),
-        'model' => env('GEMINI_MODEL', 'gemini-2.5-flash'),
+    'analytics' => [
+        'monthly_target' => env('REVENUE_MONTHLY_TARGET', 50000000),
     ],
 
 ];
